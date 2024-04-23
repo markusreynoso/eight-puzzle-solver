@@ -67,6 +67,28 @@ public class Solver {
         return true;
     }
 
+    public int computeHeuristic(Grid grid){
+        String numbers = "12345678";
+        String extracted = "";
+        Integer counter = 0;
+
+        for (ArrayList<String> row : grid.getLayout()){
+            for (String tile : row){
+                if (numbers.contains(tile)){
+                    extracted += tile;
+                }
+            }
+        }
+
+        for (int index = 0; index <= 7; index++){
+            if (index + 1 == Integer.parseInt(String.valueOf(extracted.charAt(index)))){
+                counter++;
+            }
+        }
+
+        return counter;
+    }
+
     public String solvePuzzle(Grid grid){
         return "";
     }
