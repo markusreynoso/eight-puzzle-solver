@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Solver {
     public void slideTile(Grid grid, String move){
         int spaceYPos = 0;
@@ -44,6 +46,25 @@ public class Solver {
                     break;
                 }
         }
+    }
+
+    public boolean isSolved(Grid grid){
+        String numbers = "12345678";
+        String extracted = "";
+        for (ArrayList<String> row : grid.getLayout()){
+            for (String tile : row){
+                if (numbers.contains(tile)){
+                    extracted += tile;
+                }
+            }
+        }
+
+        for (int index = 0; index <= 7; index++){
+            if (index + 1 != Integer.parseInt(String.valueOf(extracted.charAt(index)))){
+                return false;
+            }
+        }
+        return true;
     }
 
     public String solvePuzzle(Grid grid){
