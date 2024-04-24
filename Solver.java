@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Solver {
     public void slideTile(Grid grid, String move){
@@ -70,7 +73,7 @@ public class Solver {
     public int computeHeuristic(Grid grid){
         String numbers = "12345678";
         String extracted = "";
-        Integer counter = 0;
+        int counter = 0;
 
         for (ArrayList<String> row : grid.getLayout()){
             for (String tile : row){
@@ -89,7 +92,86 @@ public class Solver {
         return counter;
     }
 
-    public String solvePuzzle(Grid grid){
-        return "";
+    public Grid deepCopyGrid(Grid grid){
+        ArrayList<ArrayList<String>> layoutCopy = new ArrayList<>();
+        for (ArrayList<String> row : grid.getLayout()){
+            ArrayList<String> newRow = new ArrayList<>(row);
+            layoutCopy.add(newRow);
+        }
+        return new Grid(layoutCopy);
+    }
+
+    public String solvePuzzleAStar(Grid grid){
+        if (isSolved(grid)){
+            return "Already solved";
+        }
+
+        HashSet<String> visited = new HashSet<>();
+        ArrayList<State> frontiers = new ArrayList<>();
+        String[] moves = {"u", "d", "l", "r"};
+
+        State initialState = new State(grid, "", computeHeuristic(grid));
+        frontiers.add(initialState);
+
+        while (frontiers.size() != 0){
+            State currentState = frontiers.get(0);
+            frontiers.remove(0);
+            for (String move : moves){
+                Grid gridcopy = deepCopyGrid(currentState.getGrid());
+                slideTile(gridcopy, move);
+                if (isSolved(gridcopy)){
+                    return currentState.getMoveSequence() + move;
+                }
+                if (visited.contains(gridcopy.getLayout().toString())){
+                    continue;
+                }
+                visited.add(gridcopy.getLayout().toString());
+
+                int newStateHeuristic = computeHeuristic(gridcopy);
+                State newState = new State(gridcopy, currentState.getMoveSequence() + move, newStateHeuristic);
+
+                int insertIndex = 0;
+
+                while (insertIndex < frontiers.size() && newStateHeuristic > frontiers.get(insertIndex).getHeuristic()){
+                    insertIndex++;
+                }
+                frontiers.add(insertIndex, newState);
+            }
+        }
+        return "Dead";
+    }
+
+    public String solvePuzzleBfs(Grid grid){
+        if (isSolved(grid)){
+            return "Already solved";
+        }
+
+        HashSet<String> visited = new HashSet<>();
+        ArrayList<State> frontiers = new ArrayList<>();
+        String[] moves = {"u", "d", "l", "r"};
+
+        State initialState = new State(grid, "", computeHeuristic(grid));
+        frontiers.add(initialState);
+
+        while (frontiers.size() != 0){
+            State currentState = frontiers.get(0);
+            frontiers.remove(0);
+            for (String move : moves){
+                Grid gridcopy = deepCopyGrid(currentState.getGrid());
+                slideTile(gridcopy, move);
+                if (isSolved(gridcopy)){
+                    return currentState.getMoveSequence() + move;
+                }
+                if (visited.contains(gridcopy.getLayout().toString())){
+                    continue;
+                }
+                visited.add(gridcopy.getLayout().toString());
+
+                State newState = new State(gridcopy, currentState.getMoveSequence() + move, 0);
+
+                frontiers.add(newState);
+            }
+        }
+        return "Dead";
     }
 }

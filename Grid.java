@@ -22,6 +22,10 @@ public class Grid {
         }
     }
 
+    public Grid(ArrayList<ArrayList<String>> inputLayout){
+        this.layout = inputLayout;
+    }
+
     public ArrayList<ArrayList<String>> getLayout() {
         return layout;
     }
@@ -33,4 +37,5 @@ public class Grid {
         }
         return output;
     }
+
 }
