@@ -15,8 +15,10 @@ public class Main {
         Grid grid = new Grid(layout);
 
         System.out.println(grid.getLayoutPrint());
+
         System.out.println("BFS:");
         System.out.println(solver.solvePuzzleBfs(grid));
+
         System.out.println("A-Star:");
         System.out.println(solver.solvePuzzleAStar(grid));
     }

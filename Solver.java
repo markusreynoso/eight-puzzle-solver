@@ -84,7 +84,7 @@ public class Solver {
         }
 
         for (int index = 0; index <= 7; index++){
-            if (index + 1 == Integer.parseInt(String.valueOf(extracted.charAt(index)))){
+            if (index + 1 != Integer.parseInt(String.valueOf(extracted.charAt(index)))){
                 counter++;
             }
         }
