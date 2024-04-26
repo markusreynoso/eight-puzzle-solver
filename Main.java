@@ -17,6 +17,6 @@ public class Main {
         System.out.println(solver.solvePuzzleBfs(grid));
         System.out.print("\n");
         System.out.println("Greedy Best First Search:");
-        System.out.println(solver.solvePuzzleAStar(grid));
+        System.out.println(solver.solvePuzzleGBFS(grid));
     }
 }

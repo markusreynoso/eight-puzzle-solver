@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Queue;
 
 public class Solver {
     public void slideTile(Grid grid, String move){
@@ -101,7 +99,7 @@ public class Solver {
         return new Grid(layoutCopy);
     }
 
-    public String solvePuzzleAStar(Grid grid){
+    public String solvePuzzleGBFS(Grid grid){
         if (isSolved(grid)){
             return "Already solved";
         }
