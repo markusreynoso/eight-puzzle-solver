@@ -1,25 +1,22 @@
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
-        Grid demoGrid = new Grid("123 45678");
-        Scanner sc = new Scanner(System.in);
         Solver solver = new Solver();
-        String layout = "";
 
-        System.out.println("Input the layout with a space to denote the blank tile. For example, 123 45678 is read as:");
-        System.out.println(demoGrid.getLayoutPrint());;
+        // ToDo: Change this value to the desired tile layout denoting the blank tile with a space. For example, 1234 5678 is read as
+        // [1,2,3]
+        // [4, ,5]
+        // [6,7,8]
+        String layout = "15743682 ";
 
-        System.out.print("Layout: ");
-        layout = sc.nextLine();
         Grid grid = new Grid(layout);
 
+        System.out.println("Given layout: ");
         System.out.println(grid.getLayoutPrint());
 
-        System.out.println("BFS:");
+        System.out.println("BFS with pruning:");
         System.out.println(solver.solvePuzzleBfs(grid));
-
-        System.out.println("A-Star:");
+        System.out.print("\n");
+        System.out.println("Greedy Best First Search:");
         System.out.println(solver.solvePuzzleAStar(grid));
     }
 }
