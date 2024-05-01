@@ -6,7 +6,7 @@ public class Main {
         // [1,2,3]
         // [4, ,5]
         // [6,7,8]
-        String layout = "15743682 ";
+        String layout = "1234 5678";
 
         Grid grid = new Grid(layout);
 
